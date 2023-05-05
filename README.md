@@ -3,6 +3,7 @@ Tracing single line via camera. Source code for IEVE's 2nd International Univers
 
 국제 전기차 엑스포에서 주최한 제 2회 국제 대학생 전기차 자율주행 경진대회 1/10 자율주행 종목에 출전했던 부산대학교 기계공학과 팀의 코드입니다.
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/jxaMWl2RJnI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 https://youtu.be/jxaMWl2RJnI
 
 ------------------------------------------------------------------------------------------------------------------------------------
@@ -30,6 +31,7 @@ SW 구성
 ------------------------------------------------------------------------------------------------------------------------------------
 
 조향 알고리즘
+
 : 본 코드는 카메라가 차선을 정상적으로 보고 있을 때 차선이 화면 안으로 들어와서 나가는 점을 이용해 화면의 가장자리에서 차선을 인식하고 두 점을 이어 x[0] (아랫쪽에서 인식된 차선의 x값), x[1] (나머지 한쪽의 x값), theta(두 점이 y축과 이루는 각도)를 이용해 조향합니다.
 
 1. Region Of Interest (reg_of_int)
