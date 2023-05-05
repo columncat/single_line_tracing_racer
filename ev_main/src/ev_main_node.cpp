@@ -18,7 +18,8 @@ std::string gstreamer_pipeline(int capture_width, int capture_height, int displa
            std::to_string(display_height) + ", format=(string)BGRx ! videoconvert ! video/x-raw, format=(string)BGR ! appsink";
 }
 
-/* Cropping frames */
+/* Cropping frame image */
+/* Returns only the edges */
 Mat reg_of_int(Mat img)
 {
     int img_h = img.rows;
@@ -44,9 +45,9 @@ Mat reg_of_int(Mat img)
     return masked_img;
 }
 
-/* Read camera and return x, x2, theta */
-/* x for line location of vehicle, x2 for line location in front of vehicle */
-void get_disp(const Mat &masked, int *x, int &theta, int &num_detected)
+/* Read camera and return x, theta */
+/* x[0] for line location of vehicle, x[1] for line location in front of vehicle */
+void get_disp(const Mat &masked, int &num_detected, int *x, int &theta)
 {
     std::vector<std::vector<Point>> contours;
     findContours(masked, contours, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
@@ -64,18 +65,20 @@ void get_disp(const Mat &masked, int *x, int &theta, int &num_detected)
         }
     }
     // do not update value for edge cases
+    // last x will be reserved and it will be able to return to line if framerate is high enough
     if (num_detected != 2)
         return;
     if (potents[0].y == potents[1].y)
         return;
 
+    // deciding which is closer to vehicle
     int holder = potents[0].y > potents[1].y ? 0 : 1;
     int follower = !holder;
     x[0] = potents[holder].x - masked.cols / 2;
     x[1] = potents[follower].x - masked.cols / 2;
 
     double radian = atan2(potents[holder].x - potents[follower].x, potents[holder].y - potents[follower].y);
-    theta = (int)(radian * 180 / M_PI);
+    theta = (int)(radian * 180 / M_PI); // rad to deg
 
     // setting range of atan2 to -Pi/2 to PI/2
     if (theta > 90)
@@ -96,7 +99,7 @@ double get_factor(double dx, double min, double amp)
     return min + amp * sigmoid(dx);
 }
 
-void get_steer(int *x, int theta, int &steering_angle)
+int get_steer(int *x, int theta)
 {
     double dx = (double)(abs(x[1]) - abs(x[0])) / 140;
     double xavg = (double)(x[0] + x[1]) / 2;
@@ -104,11 +107,11 @@ void get_steer(int *x, int theta, int &steering_angle)
     /* increase factor of theta when line goes out of sight
        decrease factor of theta when line crosses across the sight
        follow xavg when xavg is big enough */
-    steering_angle = theta * get_factor(dx, 1.5, 0.4) + pow((abs(xavg) / 320), 2) * xavg / abs(xavg) * -45;
+    int steering_angle = theta * get_factor(dx, 1.5, 0.4) + pow((abs(xavg) / 320), 2) * xavg / abs(xavg) * -45;
 
     steering_angle = steering_angle > 45 ? 45 : steering_angle;
     steering_angle = steering_angle < -45 ? -45 : steering_angle;
-    return;
+    return steering_angle;
 }
 
 int main(int argc, char **argv)
@@ -172,8 +175,8 @@ int main(int argc, char **argv)
         Mat yellow_mask;
         inRange(hsv, lower_yellow, upper_yellow, yellow_mask);
 
-        get_disp(yellow_mask, x, theta, num_detected); // num_detected was used for debugging
-        get_steer2(x, theta, steering_angle);
+        get_disp(yellow_mask, num_detected, x, theta);
+        steering_angle = get_steer(x, theta);
 
         ROS_INFO("%d, %d, %d, %d, %d", num_detected, x[0], x[1], theta, steering_angle);
 
@@ -189,5 +192,3 @@ int main(int argc, char **argv)
     cap.release();
     return 0;
 }
-
-// source ~/catkin_ws/devel/setup.bash
