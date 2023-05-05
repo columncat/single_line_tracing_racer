@@ -3,7 +3,9 @@ Tracing single line via camera. Source code for IEVE's 2nd International Univers
 
 국제 전기차 엑스포에서 주최한 제 2회 국제 대학생 전기차 자율주행 경진대회 1/10 자율주행 종목에 출전했던 부산대학교 기계공학과 팀의 코드입니다.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/jxaMWl2RJnI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+[![IEVE 제 2회 국제 대학생 EV 자율주행 경진대회 1/10AA 종목 부산대학교 기계공학부팀 주행영상](https://img.youtube.com/vi/jxaMWl2RJnI/0.jpg)](https://www.youtube.com/watch?v=jxaMWl2RJnI)
+
+
 https://youtu.be/jxaMWl2RJnI
 
 ------------------------------------------------------------------------------------------------------------------------------------
