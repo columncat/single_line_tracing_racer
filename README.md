@@ -68,6 +68,12 @@ SW 구성
 masked image에서 contour(덩어리)를 추출합니다. 조향 알고리즘의 의도대로 2개가 추출된 경우 x와 theta를 업데이트합니다. x는 카메라의 중앙이 0의 값을 가지며 theta는 y축을 기준으로 반시계방향으로 측정됩니다.
 
 
+[![line detection by looking at edge (via opencv)](https://img.youtube.com/vi/vgk8-RSu_DI/0.jpg)](https://www.youtube.com/watch?v=vgk8-RSu_DI)
+
+
+https://youtu.be/vgk8-RSu_DI
+
+
 ------------------------------------------------------------------------------------------------------------------------------------
 
 4. get_steer
