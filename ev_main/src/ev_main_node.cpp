@@ -178,7 +178,7 @@ int main(int argc, char **argv)
         get_disp(yellow_mask, num_detected, x, theta);
         steering_angle = get_steer(x, theta);
 
-        ROS_INFO("%d, %d, %d, %d, %d", num_detected, x[0], x[1], theta, steering_angle);
+        ROS_INFO("num: %d, x: [%4d, %4d], t: %3d, steer: %3d", num_detected, x[0], x[1], theta, steering_angle);
 
         char res[4];
         res[0] = steering_angle > 0 ? 'l' : 'r';
