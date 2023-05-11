@@ -1,7 +1,7 @@
 # single_line_tracing_racer
 Tracing single line via camera. Source code for IEVE's 2nd International University Student's Autonomous EV Driving Competition in 1/10 scale.
 
-국제 전기차 엑스포에서 주최한 제 2회 국제 대학생 전기차 자율주행 경진대회 1/10 자율주행 종목에 출전했던 부산대학교 기계공학과 팀의 코드입니다.
+국제 전기차 엑스포에서 주최한 제 2회 국제 대학생 전기차 자율주행 경진대회 1/10 자율주행 종목에 출전했던 부산대학교 기계공학 팀의 코드입니다.
 
 [![IEVE 제 2회 국제 대학생 EV 자율주행 경진대회 1/10AA 종목 부산대학교 기계공학부팀 주행영상](https://img.youtube.com/vi/jxaMWl2RJnI/0.jpg)](https://www.youtube.com/watch?v=jxaMWl2RJnI)
 
@@ -170,6 +170,6 @@ steering_angle = (x_avg / x_max)^2 * steering_max
 
 steering_angle = theta * (1.5 + 0.4 * sigmoid(dx)) + (x_avg / x_max)^2 * steering_max * x_sign
 
-(x_sing = x / abs(x)로 크기는 1, 부호는 x와 같은 변수)
+(x_si = x / abs(x)로 크기는 1, 부호는 x와 같은 변수)
 
 
